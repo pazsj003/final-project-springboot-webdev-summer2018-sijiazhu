@@ -250,7 +250,10 @@ public class UserService {
 			
 			return repository.save(user);
 		}
-		throw new Exception("User dont have enough information to create account");
+		System.err.print("User dont have enough information to create account");
+		response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		return null;
+		
 	}
 
 	@PostMapping("/api/login")

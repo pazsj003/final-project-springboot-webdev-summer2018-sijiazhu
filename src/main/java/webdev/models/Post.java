@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -13,8 +16,15 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private int postuserId;
+	private String gymId;
+//	private String gymString;
 	
-    private String  title;
+  
+
+	
+
+	private String  title;
     private String  text;
     private String  photo;
     private String  video;
@@ -23,7 +33,23 @@ public class Post {
     private long  timeOrder;
     private String  date;
     
-   
+    
+    
+    public String getGymId() {
+		return gymId;
+	}
+
+	public void setGymId(String gymId) {
+		this.gymId = gymId;
+	}
+
+	public int getPostuserId() {
+		return postuserId;
+	}
+
+	public void setPostuserId(int postuserId) {
+		this.postuserId = postuserId;
+	}
 
 	public long getTimeOrder() {
 		return timeOrder;
@@ -44,8 +70,23 @@ public class Post {
 	@ManyToOne
 	@JsonIgnore
 	private User user;
+	
+	@ManyToOne
+	@JsonIgnore
+	@NotFound(action=NotFoundAction.IGNORE)
+	private Gym club;
+	
+	
     
     
+
+	public Gym getClub() {
+		return club;
+	}
+
+	public void setClub(Gym club) {
+		this.club = club;
+	}
 
 	public int getId() {
 		return id;

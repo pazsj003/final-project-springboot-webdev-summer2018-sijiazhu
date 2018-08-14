@@ -5,10 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -30,9 +33,22 @@ public class User {
 	private String profileimg;
 	private Date dateOfBirth;
 	
-	@ManyToMany(mappedBy = "members")
-	private Set<Gym> gyms =new HashSet<>();;
+
 	
+//    
+//	 @ManyToMany(fetch = FetchType.LAZY,
+//	            cascade = {
+//	                CascadeType.PERSIST,
+//	                CascadeType.MERGE
+//	            },
+//	            mappedBy = "members")
+//	 
+//	
+//	private Set<Gym> gyms =new HashSet<>();
+//	
+	
+	@OneToMany(mappedBy="member")
+    private List<Gym> gyms;
 
 
 	@OneToMany(mappedBy="user")
@@ -43,11 +59,11 @@ public class User {
 	    private List<Friend> friends;
 		
 	 
-	 public Set<Gym> getGyms() {
-		return gyms;
+	 public List<Gym> getGyms() {
+		return (List<Gym>) gyms;
 	}
 
-	public void setGyms(Set<Gym> gyms) {
+	public void setGyms(List<Gym> gyms) {
 		this.gyms = gyms;
 	}
 	 
